@@ -1,0 +1,39 @@
+<h1>For you</h1>
+
+<style>
+  .half-card {
+    border-radius: 5px;
+    border: 1px grey;
+  }
+</style>
+
+<div class="row">
+  <div class="col-6 half-card">
+    <h2>Posts</h2>
+    <ul>
+      <% @posts.each do |post| %>
+        <li><%= render post %></li>
+      <% end %>
+    </ul>
+    <% if @posts.length == 0 %>
+      <p><i>You're the first one here! Click to <%= link_to "create a new post", new_post_path %> now!</i></p>
+    <% else %>
+    <%= link_to "Create New Post", new_post_path %>
+    <% end %>
+  </div>
+  <div class="col-6 half-card">
+    <h2>Friends</h2>
+    <ul>
+      <% @friends.each do |friend| %>
+        <li><%= link_to friend.handle, friend, class: "btn btn-link" %></li>
+      <% end %>
+    </ul>
+
+    <h2>Discover new friends</h2>
+    <ul>
+      <% @strangers.each do |stranger| %>
+        <li><%= link_to stranger.handle, stranger, class: "btn btn-link" %></li>
+      <% end %>
+    </ul>
+  </div>
+</div>

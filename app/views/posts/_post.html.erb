@@ -1,0 +1,83 @@
+<style>
+  .nolink {
+    text-decoration: none;
+    color: black;
+  }
+</style>
+<div id="<%= dom_id post%>" class="card mb-3">
+  <div class="card-body">
+
+    <p>
+      <strong><%= link_to post.profile.handle, post.profile, class: 'nolink'%></strong>
+    </p>
+
+    <div class="card-text">
+      <%= @markdown.render(post.body).html_safe %>
+    </div>
+
+    <div style="position: relative; display: inline; min-width: 1px; max-width: 10%;margin-bottom: 30px;" class="mb-3">
+      <div class="btn-like" style="">
+        <button type="button" class="btn btn-heart"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
+</svg></button>
+        <%= button_to JSON.parse(post.stats)["likes"].length, like_post_path(post), class: "btn btn-heart stretched-link", role: "button", type: "button"%>
+      </div>
+    </div>
+    
+    <div id="viewpost" style="margin-top: 1%">
+      <%= link_to 'View Post', post_path(post), class: 'btn btn-primary stretched-link' %>
+    </div>
+  </div>
+</div>
+
+<style>
+  .btn-heart {
+    --bs-btn-color: inherit;
+    --bs-btn-hover-color: inherit;
+    --bs-btn-active-color: var(--bs-white);
+    --bs-btn-active-bg: transparent;
+    outline: 0px;
+    --bs-btn-border-width: 0px;
+    --bs-btn-border-color: var(--bs-white);
+    --bs-btn-active-border-color: var(--bs-white);
+
+    border: none;
+  }
+  form {
+    display: inline;
+  }
+  .btn-like {
+    display:block; 
+    width: fit-content; 
+    min-width: 1px; 
+    transform: rotate(0); 
+    border: solid 1px #ff3040; 
+    border-radius: 30px; 
+    height: fit-content; 
+    padding: 0.5%;
+    color: #ff3040;
+
+  }
+  .btn-like:active {
+    background-color: #ff3040;
+    color: white;
+    transition: 0.3s;
+
+  }
+  .btn-like:hover {
+    background-color: #ff3040;
+    color: white;
+    transition: 0.3s;
+  }
+  .btn-like:after {
+    background-color: white;
+    color: #ff3040;
+    transition: 0.7s;
+    width: 110%;
+  }
+  img {
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+  }
+</style>

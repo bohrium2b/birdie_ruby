@@ -1,0 +1,39 @@
+<!--<p style="color: green"><%= notice %></p>-->
+<div style="max-width: 40%;">
+  <div style="min-width:100%">
+    <div class="mb-3">
+    <%= render @profile %>
+    
+    </div>
+    <div class="mb-3" >
+      <strong>Follows:</strong> <%= @profile.friends.count %> people
+      <br />
+      <strong>Followed by:</strong> <%= @profile.inverse_friendships.count %> people
+    </div>
+    <% if current_user.profile != @profile %>
+    <div class="mb-3">
+      <% if ! current_user.profile.friends.include?(@profile)%>
+      <%= button_to "Friend", home_add_friend_path(@profile), class: "btn btn-primary" %>
+      <% else %>
+      <%= button_to "Unfriend", home_remove_friend_path(@profile), class: "btn btn-danger" %>
+      <% end %>
+    </div>
+    <% end %>
+
+    <% if current_user.profile == @profile %>
+    <div class="mb-3">
+      <%= link_to "Edit this profile", edit_profile_path(@profile), class: "btn btn-primary" %> | 
+      <%= link_to "Create New Post", new_post_path, class: "btn btn-success"%>
+      <!--<%= link_to "Back to profiles", profiles_path, class: "btn" %>-->
+    </div>
+    <% end %>
+    <div class="mb-3">
+      <% if @profile.ispublic || current_user.profile == @profile || current_user.profile.friends.include?(@profile) %>
+        <% @profile.posts.each do |post| %>
+          <%= render post %>
+        <% end %>
+      <% end %>
+    </div>
+</div>
+</div>
+</div>

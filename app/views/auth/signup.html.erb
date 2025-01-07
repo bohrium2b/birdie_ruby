@@ -1,0 +1,142 @@
+<style>
+    .form {
+        width: 50%;
+        margin: 0 auto;
+    }
+    #stage2, #stage3 {
+        display: none;
+    }
+    #back {
+        display: none;
+    }
+    #nopasswordmatch {
+        display: none;
+    }
+    #submitfield {
+        display: none;
+    }
+</style>
+
+<%= form_with url: auth_signuppost_path, id: "form" do |form| %>
+    <div id="stage1">
+        <h1>Welcome to Birdie!</h1>
+        <h2>Create your account</h2>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" required id="email" name="email" placeholder="Email">
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" id="password" class="form-control" required id="password" name="password" placeholder="Password">
+        </div>
+        <div class="mb-3">
+            <label for="password_confirmation" class="form-label">Password Confirmation</label>
+            <input type="password" id="confirmpassword" class="form-control" required id="password_confirmation" name="password_confirmation" placeholder="Password Confirmation">
+            <div class="invalid-feedback" id="nopasswordmatch">
+                Passwords do not match
+            </div>
+        </div>
+        
+    </div>
+    <div id="stage2">
+        <h1>Welcome to Birdie!</h1>
+        <h2>Let's set up your profile.</h2>
+        <div class="row">
+            <div class="col">
+                <div class="mb-3">
+                    <label for="first_name" class="form-label">First Name</label>
+                    <input type="text" class="form-control" required id="first_name" name="first_name" placeholder="First Name">
+                </div>
+            </div>
+            <div class="col">
+                <div class="mb-3">
+                    <label for="last_name" class="form-label">Last Name</label>
+                    <input type="text" class="form-control" required id="last_name" name="last_name" placeholder="Last Name">
+                </div>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="handle" class="form-label">Handle</label>
+            <input type="text" class="form-control" required id="handle" name="handle" placeholder="Handle">
+        </div>
+        <div class="mb-3">
+            <label for="bio" class="form-label">Bio</label>
+            <textarea class="form-control" rows="3" name="bio" ></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="prns" class="form-label">Pronouns</label>
+            <input type="text" class="form-control" required id="prns" name="pronouns" placeholder="Pronouns">
+        </div>
+        <div class="mb-3">
+            <label for="publicity" class="form-label">Public profile?</label>
+            <select class="form-select" required id="publicity" name="ispublic">
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+            </select>
+        </div>
+    </div>
+    <div id="stage3">
+        <h1>Welcome to Birdie!</h1>
+        <h2>You're all done!</h2>
+        <div class="mb-3">
+            <input type="button" id="check" class="btn btn-primary" value="Check">
+        </div>
+        <div class="mb-3" id="submitfield">
+            <input type="submit" class="btn btn-success" value="Sign Up">
+        </div>
+    </div>
+    <div id="navbar">
+        <a href="#" id="back" class="btn btn-primary">Back</a>
+        <a href="#" id="next" class="btn btn-primary">Next</a>
+    </div>
+<% end %>
+
+<script>
+    $(document).ready(function() {
+        var stage = 1;
+
+        $('#stage2').hide();
+        $('#stage3').hide();
+        $('#next').click(function(e) {
+            e.preventDefault();
+            $('#stage' + stage).hide();
+            stage = stage + 1;
+            if (stage >= 2) {
+                $('#back').show();
+            }
+            if (stage >= 3) {
+                $('#next').hide();
+            }
+            $('#stage' + stage).show();
+        });
+        $('#back').click(function(e) {
+            e.preventDefault();
+            $('#stage' + stage).hide();
+            stage = stage - 1;
+            if (stage <= 1) {
+                $('#back').hide();
+            }
+            if (stage <= 2) {
+                $('#next').show();
+            }
+            $('#stage' + stage).show(); 
+        });
+    });
+    $("#confirmpassword").on("change", function() {
+        if ($("#password").val() != $("#confirmpassword").val()) {
+            $("#nopasswordmatch").show();
+        }
+        else {
+            $("#nopasswordmatch").hide();
+        }
+    });
+    $("#check").on("click", function(e) {
+        e.preventDefault();
+        $("#form").validate();
+        $("#stage1").show();
+        $("#stage2").show();
+        $("#stage3").show();
+        $("#navbar").hide();
+        $("#submitfield").show();
+    });
+</script>

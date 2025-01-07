@@ -1,0 +1,18 @@
+<div id="<%= dom_id profile %>" class="card" style="max-width: 40%">
+  <div class="card-body">
+    <h6>
+      <%# <strong>User:</strong> %>
+      @<%= profile.user.handle %>
+    </h6>
+    <!--
+    <p>
+      <strong>Ispublic:</strong>
+      <%= profile.ispublic %>
+    </p>-->
+
+    <p>
+      <strong>About me:</strong>
+      <%= profile.bio %>
+    </p>
+  </div>
+</div>

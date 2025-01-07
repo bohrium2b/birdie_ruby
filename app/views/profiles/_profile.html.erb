@@ -1,0 +1,18 @@
+<div id="<%= dom_id profile %>" class="card">
+  <div class="card-body">
+    <h5>
+      <%# <strong>User:</strong> %>
+      @<%= profile.handle %> <% if profile.gender && profile.gender != " " %>(<%= profile.gender %>)<%end%>
+    </h5>
+    <!--
+    <p>
+      <strong>Ispublic:</strong>
+      <%= profile.ispublic %>
+    </p>-->
+
+    <p>
+      <strong>About me:</strong>
+      <%= @markdown.render(profile.bio).html_safe %>
+    </p>
+  </div>
+</div>
